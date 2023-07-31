@@ -103,7 +103,14 @@ def save_screenshot(browser):
     print(f"Saved screenshot to: {SCREENSHOT_PATH}")
 
 
+def open_with_default_application(path):
+    if os.name == "nt":
+        os.startfile((path))
 
+def exit_app(browser):
+    print("Closing browser and exiting app")
+    browser.CloseBrowser()
+    cef.QuitMessageLoop()
 
 
 
