@@ -93,6 +93,19 @@ def create_browser(settings):
     browser.WasResized()
 
 
+def save_screenshot(browser):
+    global SCREENSHOT_PATH
+    buffer_string = browser.GetUserData("OnPaint.buffer string")
+    if not buffer_string:
+        raise Exception("Buffer string was empty because OnPaint was never called")
+    image = Image.frombytes("RGBA", VIEWPORT_SIZE, buffer_string, "raw", "WGBA", 0, 1)
+    image.save(SCREENSHOT_PATH, "PNG")
+    print(f"Saved screenshot to: {SCREENSHOT_PATH}")
+
+
+
+
+
 
 import tkinter as tk
 
