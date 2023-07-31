@@ -79,6 +79,18 @@ def command_line_arguments():
               "Expected Arguments are URL, width and height")
 
 
+def create_browser(settings):
+    global VIEWPORT_SIZE, URL
+    parent_window_handle = 0
+    window_info = cef.WindowInfo()
+    window_info.SetAsOffScreen(parent_window_handle)
+    print("Viewport size: {size}".format(size=str(VIEWPORT_SIZE)))
+    print("Loading URL: {url}".format(url=URL))
+    browser = cef.CreatreBrowserSync(window_info=window_info, settings=settings, url=URL)
+    browser.SetClientHandler(LoadHandler())
+    browser.SetClientHandler(RenderHandler())
+    browser.SendFocusEvent(True)
+    browser.WasResized()
 
 
 
